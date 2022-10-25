@@ -35,14 +35,19 @@ public class Bocadillo {
 		)
 	private Set<Pedido> pedidos;
 	
+	@ManyToMany(mappedBy = "bocadillos",cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+	private Set<Ingrediente> ingredientes;
+	
 	public Bocadillo () {
 		pedidos = new HashSet<Pedido>();
+		ingredientes = new HashSet<Ingrediente>();
 	}
 
 	
 	public Bocadillo(String nombre) {
 		this.nombre = nombre;
 		pedidos = new HashSet<Pedido>();
+		ingredientes = new HashSet<Ingrediente>();
 	}
 
 
@@ -70,8 +75,21 @@ public class Bocadillo {
 		this.pedidos = pedidos;
 	}
 	
+	public Set<Ingrediente> getIngredientes() {
+		return ingredientes;
+	}
+
+
+	public void setIngredientes(Set<Ingrediente> ingredientes) {
+		this.ingredientes = ingredientes;
+	}
+
+
 	public void imprimir() {
 		System.out.println("Bocadillo id=" + id + ", nombre=" + getNombre());
+		for (Ingrediente i: ingredientes) {
+			i.imprimir();
+		}
 	}
 	
 	

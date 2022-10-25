@@ -65,7 +65,7 @@ public class Pedido {
 	}
 
 	public void imprimir() {
-		System.out.println("Pedido [id=" + id + "]");
+		System.out.println("Pedido id=" + id);
 		for(Bocadillo b: bocadillos) {
 			b.imprimir();
 		}

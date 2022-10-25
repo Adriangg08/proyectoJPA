@@ -62,9 +62,10 @@ public class Alumno {
 
 	public void imprimir() {
 		
-		System.out.println("Alumno [id=" + id + ", nombre=" + getNombre() + "]");
+		System.out.println("Alumno id=" + id + ", nombre=" + getNombre());
 		for(Pedido p: pedidos) {
 			p.imprimir();
+			System.out.println("");
 		}
 		
 	}

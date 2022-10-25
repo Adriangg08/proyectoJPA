@@ -8,20 +8,20 @@ import javax.persistence.PersistenceException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import modelo.Bocadillo;
+import modelo.Ingrediente;
 import modelo.Pedido;
 import utils.HibernateUtil;
 import utils.JPAUtil;
 
-public class BocadilloDAO {
+public class IngredienteDAO {
 
-	public void insertarBocadilloJPA(Bocadillo bocadillo) {
+	public void insertarIngredienteJPA(Ingrediente ingrediente) {
 		 
 		 EntityManager em =  JPAUtil.getEntityManagerFactory().createEntityManager();
 		 
 		 try {
 			em.getTransaction().begin();
-			em.persist(bocadillo);
+			em.persist(ingrediente);
 			em.getTransaction().commit();
 		} catch (PersistenceException e) {
 			em.getTransaction().rollback();
@@ -32,7 +32,7 @@ public class BocadilloDAO {
 		 
 	 }
 	
-	public void insertarBocadilloHibernate(Bocadillo bocadillo) {
+	public void insertarIngredienteHibernate(Ingrediente ingrediente) {
 		 
 		 Transaction tr = null;
 		 Session session = null;
@@ -40,7 +40,7 @@ public class BocadilloDAO {
 		 try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			tr = session.beginTransaction();
-			session.persist(bocadillo);
+			session.persist(ingrediente);
 			tr.commit();
 		} catch (PersistenceException e) {
 			tr.rollback();
@@ -51,7 +51,7 @@ public class BocadilloDAO {
 		 
 	 }
 	
-	public void modificarBocadilloHibernate (Bocadillo bocadillo) {
+	public void modificarIngredienteHibernate (Ingrediente ingrediente) {
 		 
 		 Transaction tr = null;
 		 Session session = null;
@@ -59,7 +59,7 @@ public class BocadilloDAO {
 		 try {
 				session = HibernateUtil.getSessionFactory().openSession();
 				tr = session.beginTransaction();
-				session.merge(bocadillo);
+				session.merge(ingrediente);
 				tr.commit();
 			} catch (PersistenceException e) {
 				tr.rollback();
@@ -69,13 +69,13 @@ public class BocadilloDAO {
 			}
 	 }
 	 
-	 public void modificarBocadilloJPA (Bocadillo bocadillo) {
+	 public void modificarIngredienteJPA (Ingrediente ingrediente) {
 		
 		 EntityManager em =  JPAUtil.getEntityManagerFactory().createEntityManager();
 		 
 		 try {
 			em.getTransaction().begin();
-			em.merge(bocadillo);
+			em.merge(ingrediente);
 			em.getTransaction().commit();
 		} catch (PersistenceException e) {
 			em.getTransaction().rollback();
@@ -85,14 +85,14 @@ public class BocadilloDAO {
 		} 
 	 }
 
-	 public void eliminarBocadilloJPA (Bocadillo bocadillo) {
+	 public void eliminarIngredienteJPA (Ingrediente ingrediente) {
 
 		 EntityManager em =  JPAUtil.getEntityManagerFactory().createEntityManager();
 		 
 		 try {
-			Bocadillo p = em.find(Bocadillo.class, bocadillo.getId());
+			Ingrediente i = em.find(Ingrediente.class, ingrediente.getId());
 			em.getTransaction().begin();
-			em.remove(p);
+			em.remove(i);
 			em.getTransaction().commit();
 		} catch (PersistenceException e) {
 			em.getTransaction().rollback();
@@ -102,7 +102,7 @@ public class BocadilloDAO {
 		} 
 	 }
 	 
-	 public void eliminarPedidoHibernate (Bocadillo bocadillo) {
+	 public void eliminarIngredienteHibernate (Ingrediente ingrediente) {
 		 
 		 Transaction tr = null;
 		 Session session = null;
@@ -110,7 +110,7 @@ public class BocadilloDAO {
 		 try {
 				session = HibernateUtil.getSessionFactory().openSession();
 				tr = session.beginTransaction();
-				session.delete(bocadillo);
+				session.delete(ingrediente);
 				tr.commit();
 			} catch (PersistenceException e) {
 				tr.rollback();
@@ -120,15 +120,15 @@ public class BocadilloDAO {
 			}
 	 }
 	 
-	 public ArrayList<Bocadillo> listarBocadillosJPA () {
+	 public ArrayList<Ingrediente> listarIngredientesJPA () {
 		
 		 EntityManager em =  JPAUtil.getEntityManagerFactory().createEntityManager();
 		 
 		 try {
 			em.getTransaction().begin();
-			ArrayList<Bocadillo> listabocadillos = (ArrayList<Bocadillo>) em.createQuery("from Bocadillo").getResultList();
+			ArrayList<Ingrediente> listaingredientes = (ArrayList<Ingrediente>) em.createQuery("from Ingrediente").getResultList();
 			em.getTransaction().commit();
-			return listabocadillos;
+			return listaingredientes;
 		} catch (PersistenceException e) {
 			em.getTransaction().rollback();
 			System.err.println(e.getMessage());
@@ -139,7 +139,7 @@ public class BocadilloDAO {
 		 return null;
 	 }
 	 
-	 public ArrayList<Bocadillo> listarBocadillosHibernate () {
+	 public ArrayList<Ingrediente> listarIngredientesHibernate () {
 			
 		 Transaction tr = null;
 		 Session session = null;
@@ -147,9 +147,9 @@ public class BocadilloDAO {
 		 try {
 				session = HibernateUtil.getSessionFactory().openSession();
 				tr = session.beginTransaction();
-				ArrayList<Bocadillo> listabocadillos = (ArrayList<Bocadillo>) session.createQuery("from Bocadillo").getResultList();
+				ArrayList<Ingrediente> listaingredientes = (ArrayList<Ingrediente>) session.createQuery("from Ingrediente").getResultList();
 				tr.commit();
-				return listabocadillos;
+				return listaingredientes;
 			} catch (PersistenceException e) {
 				tr.rollback();
 				System.err.println(e.getMessage());
@@ -159,31 +159,31 @@ public class BocadilloDAO {
 		 return null;
 	 }
 	 
-	 public void imprimirBocadillos(ArrayList<Bocadillo> listabocadillos) {
+	 public void imprimirIngredientes(ArrayList<Ingrediente> listaingredientes) {
 		 
-		 for (Bocadillo a: listabocadillos) {
+		 for (Ingrediente a: listaingredientes) {
 			 a.imprimir();
 		 }
 	 }
 	 
-	 public Bocadillo readBocadillo(int id) {
+	 public Ingrediente readIngrediente(int id) {
 		 
 		 EntityManager em =  JPAUtil.getEntityManagerFactory().createEntityManager();
 		 
-		 Bocadillo al = em.find(Bocadillo.class, id);
+		 Ingrediente al = em.find(Ingrediente.class, id);
 		 
 		 return al;
 	 }
 	 
 	 
-	 public Bocadillo buscarIDJPA(int id) {
+	 public Ingrediente buscarIDJPA(int id) {
 	        EntityManager entity = JPAUtil.getEntityManagerFactory().createEntityManager();
 	        try {
 	            entity.getTransaction().begin();
-	            Bocadillo bocadillo = entity.find(Bocadillo.class, id);
+	            Ingrediente ingrediente = entity.find(Ingrediente.class, id);
 	            entity.getTransaction().commit();
-	            System.out.println("El bocadillo del id " +id+ " es " +bocadillo.getNombre());
-	            return bocadillo;
+	            System.out.println("El ingrediente de id " +id+ " es " +ingrediente.getNombre());
+	            return ingrediente;
 	        } catch (PersistenceException exception) {
 	            entity.getTransaction().rollback();
 	            System.out.println(exception.getMessage());
@@ -193,17 +193,17 @@ public class BocadilloDAO {
 	        return null;    
 	    }
 	 
-	 public Bocadillo buscarIDHibernate(int id) {
+	 public Ingrediente buscarIDHibernate(int id) {
 		 Transaction tr = null;
 		 Session session = null;
-		 Bocadillo resultado = null;
+		 Ingrediente resultado = null;
 		 
 		 try {
 				session = HibernateUtil.getSessionFactory().openSession();
 				tr = session.beginTransaction();
-				resultado = session.find(Bocadillo.class, id);
+				resultado = session.find(Ingrediente.class, id);
 				tr.commit();
-				System.out.println("El bocadillo del id " +id+ " es " +resultado.toString());
+				System.out.println("El ingrediente del id " +id+ " es " +resultado.toString());
 				return resultado;
 			} catch (PersistenceException e) {
 				tr.rollback();
