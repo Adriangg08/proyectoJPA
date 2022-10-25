@@ -39,7 +39,7 @@ public class Principal {
 		p.setAlumno(a);
 		a.getPedidos().add(p);
 		
-		Bocadillo b = new Bocadillo("Jamon");
+		Bocadillo b = new Bocadillo("Jamon",3.0);
 		BocadilloDAO bDAO = new BocadilloDAO();
 //		Bocadillo b = bDAO.buscarIDJPA(1);
 		

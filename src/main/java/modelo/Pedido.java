@@ -69,6 +69,19 @@ public class Pedido {
 		for(Bocadillo b: bocadillos) {
 			b.imprimir();
 		}
+		
+		System.out.println("El precio total es: " + calcularPrecio());
+	}
+
+	private String calcularPrecio() {
+		
+		double resul = 0;
+		
+		for(Bocadillo b: bocadillos) {
+			resul += b.getPrecio();
+		}
+		
+		return String.valueOf(resul);
 	}
 	
 	

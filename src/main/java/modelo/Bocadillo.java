@@ -27,6 +27,9 @@ public class Bocadillo {
 	@Column(name="nombre")
 	private String nombre;
 	
+	@Column(name="precio")
+	private double precio = 0;
+	
 	@ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "pedidos_bocadillos", 
@@ -44,8 +47,9 @@ public class Bocadillo {
 	}
 
 	
-	public Bocadillo(String nombre) {
+	public Bocadillo(String nombre,Double p) {
 		this.nombre = nombre;
+		precio = p;
 		pedidos = new HashSet<Pedido>();
 		ingredientes = new HashSet<Ingrediente>();
 	}
@@ -84,9 +88,17 @@ public class Bocadillo {
 		this.ingredientes = ingredientes;
 	}
 
+	public double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
 
 	public void imprimir() {
-		System.out.println("Bocadillo id=" + id + ", nombre=" + getNombre());
+		System.out.println("Bocadillo id=" + id + ", nombre=" + getNombre() + ", precio=" + precio);
 		for (Ingrediente i: ingredientes) {
 			i.imprimir();
 		}
